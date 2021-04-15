@@ -1,0 +1,40 @@
+---
+
+- name: "Connecting to NX-OS Switches"
+  hosts: all
+  gather_facts: no  
+
+  tasks:
+
+    - name: Gather facts (nxos)
+      cisco.nxos.nxos_facts:
+
+#    - name: run show version
+#      cisco.nxos.nxos_command:
+#        commands:
+#        - command: show version
+#          output: json
+
+    - name: Display some facts
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+    - name: Backup Switch (nxos)
+      cisco.nxos.nxos_config:
+        backup: yes
+      register: backup_nxos_location
+
+    - name: Create backup dir
+      file:
+        path: "/tmp/backups/{{ inventory_hostname }}"
+        state: directory
+        recurse: yes
+
+    - name: Copy backup files into /tmp/backups/ (nxos)
+      copy:
+        src: "{{ backup_nxos_location.backup_path }}"
+        dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.bck"
+
+
+      cisco.nxos.nxos_facts:
+

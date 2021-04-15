@@ -1,5 +1,22 @@
 ---
 
+#- name: Create local directory
+#  hosts: localhost
+#  gather_facts: no
+#  connection: local
+#  tasks:
+#
+#    - name: timestampe
+#      local_action: command date +%Y%m%d
+#      register: timestamp
+#
+#    - name: Create directory
+#      file: 
+#        path: /tmp/backups/{{ timestamp.stdout }}
+#        state: directory
+#        mode: 0755
+# 
+#
 - name: "Connecting to NX-OS Switches"
   hosts: all
   gather_facts: no  
@@ -8,4 +25,22 @@
 
     - name: Gather facts (nxos)
       cisco.nxos.nxos_facts:
+
+    - name: Display some facts
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+    - name: Gather Running Config
+      cisco.nxos.nxos_command:
+        commands: show run
+      register: nxos_config
+
+    - name: Display Running Config 
+      debug:
+        msg: "{{ nxos_config.stdout[0] }}"
+
+#      - copy:
+#        content: "{{ nxos_config.stdout[0] }}"
+#        dest: "/tmp/backups/{{ timestamp.stdout }}/{{ inventory_hostname }}_{{ timestamp.stdout }}.txt"
+
 
