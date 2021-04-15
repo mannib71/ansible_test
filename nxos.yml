@@ -1,0 +1,11 @@
+---
+
+- name: "Connecting to NX-OS Switches"
+  hosts: all
+  gather_facts: no  
+
+  tasks:
+
+    - name: Gather facts (nxos)
+      cisco.nxos.nxos_facts:
+
