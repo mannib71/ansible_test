@@ -1,0 +1,15 @@
+---
+
+
+- hosts: Test
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+
+  - name: upgrade full
+    apt:
+      upgrade: full
+
