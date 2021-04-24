@@ -1,7 +1,16 @@
 [Test]
-192.168.255.188 apache_package=apache2 php_package=libapache2-mod-php
+192.168.255.188
+
 [Raspi]
-192.168.255.234 apache_package=apache2 php_package=libapache2-mod-php
+192.168.255.234
+
 [CentOS]
-192.168.255.236 apache_package=httpd php_package=php
+192.168.255.236
+
+[file-servers]
+192.168.255.224
+
+[webservers]
+192.168.255.188
+192.168.255.236
 

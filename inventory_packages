@@ -1,0 +1,7 @@
+[Test]
+192.168.255.188 apache_package=apache2 php_package=libapache2-mod-php
+[Raspi]
+192.168.255.234 apache_package=apache2 php_package=libapache2-mod-php
+[CentOS]
+192.168.255.236 apache_package=httpd php_package=php
+

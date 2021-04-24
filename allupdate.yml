@@ -1,0 +1,25 @@
+---
+
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install updates (Ubuntu)
+    apt:
+      update_cache: yes
+      upgrade: dist
+    when: ansible_distribution in ["Ubuntu"]
+
+  - name: install updates (PiOS)
+    apt:
+      update_cache: yes
+      upgrade: yes
+    when: ansible_distribution in ["Debian"]
+
+  - name: install updates (CentOS)
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution in ["CentOS"]
+

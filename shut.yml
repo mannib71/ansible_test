@@ -1,0 +1,10 @@
+---
+
+- hosts: Test, Raspi, CentOS, file-servers
+  become: true
+  tasks:
+
+  - name: Shutdown Debian and CentOS base machines
+    command: shutdown -P
+    when: ansible_distribution in ["Debian", "Ubuntu", "CentOS"]
+
