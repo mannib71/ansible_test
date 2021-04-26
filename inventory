@@ -7,7 +7,7 @@
 [CentOS]
 192.168.255.236
 
-[file-servers]
+[fileservers]
 192.168.255.224
 
 [webservers]
