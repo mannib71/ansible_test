@@ -1,6 +1,6 @@
 ---
 
-- hosts: Test, Raspi, CentOS, file-servers
+- hosts: Test, Raspi, CentOS, fileservers
   become: true
   tasks:
 
