@@ -18,30 +18,30 @@
       update_cache: yes
     when: ansible_distribution in ["Ubuntu"]
 
-  - name: install updates (PiOS)
-    tags: always
-    apt:
-      update_cache: yes
-      upgrade: yes
-    when: ansible_distribution in ["Debian"]
+#  - name: install updates (PiOS)
+#    tags: always
+#    apt:
+#      update_cache: yes
+#      upgrade: yes
+#    when: ansible_distribution in ["Debian"]
 
 
-- hosts: workstations
-  become: true
-  tasks:
-
-  - name: install unzip
-    package:
-      name: unzip
-
-  - name: install terraform
-    unarchive:
-      src: https://releases.hashicorp.com/terraform/0.15.1/terraform_0.15.1_linux_amd64.zip
-      dest: /usr/local/bin
-      remote_src: yes
-      mode: 0755
-      owner: root
-      group: root
+#- hosts: workstations
+#  become: true
+#  tasks:
+#
+#  - name: install unzip
+#    package:
+#      name: unzip
+#
+#  - name: install terraform
+#    unarchive:
+#      src: https://releases.hashicorp.com/terraform/0.15.1/terraform_0.15.1_linux_amd64.zip
+#      dest: /usr/local/bin
+#      remote_src: yes
+#      mode: 0755
+#      owner: root
+#      group: root
 
 
 - hosts: webservers
@@ -65,6 +65,30 @@
         - php
       state: latest
     when: ansible_distribution in ["CentOS"]
+
+  - name: start httpd (CentOS)
+    tags: apache,centos,httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes 
+    when: ansible_distribution in ["CentOS"]
+
+  - name: change e-mail address for admin in apache (CentOS)
+    tags: appache,centos,httpd
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution == "CentOS"
+    register: httpd_var
+
+  - name: restart httpd (CentOS)
+    tags: appache,centos,httpd
+    service:
+      name: httpd
+      state: restarted
+    when: httpd_var.changed
 
   - name: copy default html file for site
     tags: apache,apache2,httpd
