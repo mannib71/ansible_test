@@ -1,19 +1,19 @@
 [workstations]
-192.168.255.165
+AnsibleWS ansible_host=192.168.255.165
 
 [Test]
-192.168.255.188
+Testserver ansible_host=192.168.255.188
 
 [Raspi]
-192.168.255.234
+RaspiVM ansible_host=192.168.255.234
 
 [CentOS]
-192.168.255.236
+centos8 ansible_host=192.168.255.236
 
 [fileservers]
-192.168.255.224
+File-u20.04 ansible_host=192.168.255.224
 
 [webservers]
-192.168.255.188
-192.168.255.236
+Testserver ansible_host=192.168.255.188
+centos8 ansible_host=192.168.255.236
 
